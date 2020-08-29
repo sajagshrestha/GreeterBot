@@ -24,19 +24,19 @@ bot.on("message", (message) => {
         voiceChannel
           .join()
           .then((connection) => {
-            const stream = discordTTS.getVoiceStream("Ma naya MangoByte ho");
+            const stream = discordTTS.getVoiceStream("sup bitches?");
             const dispatcher = connection.play(stream);
             bot.on("voiceStateUpdate", (oldState, newState) => {
               const newUserChannel = newState.channel;
               const oldUserChannel = oldState.channel;
               if (oldUserChannel === null && newUserChannel !== null) {
                 let msg = discordTTS.getVoiceStream(
-                  `${newState.member.user.username} randi aayo hai`
+                  `${newState.member.user.username} randi aayo`
                 );
                 let mydispatcher = connection.play(msg);
               } else if (newUserChannel === null) {
                 let msg = discordTTS.getVoiceStream(
-                  `${oldState.member.user.username} randi gaayo hai`
+                  `${oldState.member.user.username} randi gaayo`
                 );
                 let mydispatcher = connection.play(msg);
               }
