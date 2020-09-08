@@ -1,6 +1,10 @@
 require("dotenv").config();
-
+const fs = require("fs");
+const path = require("path");
+const dirPath = path.join(__dirname, "/khatey.mp3");
 const { Client, VoiceChannel } = require("discord.js");
+const ytdl = require("ytdl-core");
+
 const discordTTS = require("discord-tts");
 const bot = new Client();
 const PREFIX = "^";
@@ -25,20 +29,35 @@ bot.on("message", (message) => {
           .join()
           .then((connection) => {
             const stream = discordTTS.getVoiceStream("sup bitches?");
-            const dispatcher = connection.play(stream);
+
+            connection.play(dirPath);
             bot.on("voiceStateUpdate", (oldState, newState) => {
               const newUserChannel = newState.channel;
               const oldUserChannel = oldState.channel;
               if (oldUserChannel === null && newUserChannel !== null) {
                 let msg = discordTTS.getVoiceStream(
-                  `${newState.member.user.username} randi aayo`
+                  `${newState.member.user.username}`
                 );
+                let msgL = discordTTS.getVoiceStream("aayo");
                 let mydispatcher = connection.play(msg);
+                mydispatcher.on("finish", () => {
+                  let secondDispatcher = connection.play(dirPath);
+                  secondDispatcher.on("finish", () => {
+                    connection.play(msgL);
+                  });
+                });
               } else if (newUserChannel === null) {
                 let msg = discordTTS.getVoiceStream(
-                  `${oldState.member.user.username} randi gaayo`
+                  `${oldState.member.user.username}`
                 );
+                let msgL = discordTTS.getVoiceStream("gaayo");
                 let mydispatcher = connection.play(msg);
+                mydispatcher.on("finish", () => {
+                  let secondDispatcher = connection.play(dirPath);
+                  secondDispatcher.on("finish", () => {
+                    connection.play(msgL);
+                  });
+                });
               }
             });
           })
