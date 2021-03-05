@@ -55,7 +55,7 @@ bot.on("message", (message) => {
 									`${oldState.member.user.username}`
 								);
 								let onleaveGreeting = discordTTS.getVoiceStream(
-									"Farewell! ,"
+									"Farewell!,"
 								);
 								//play farewell
 								let farewlelDsipatcher = connection.play(
