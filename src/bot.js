@@ -6,6 +6,7 @@ const discordTTS = require("discord-tts");
 const bot = new Client();
 const PREFIX = "^";
 bot.on("ready", () => {
+	bot.user.setActivity("^summon");
 	console.log(`${bot.user.username} has logged in`);
 });
 
@@ -41,7 +42,7 @@ bot.on("message", (message) => {
 									`${newState.member.user.username}`
 								);
 								let onJoinGreeting = discordTTS.getVoiceStream(
-									"Well hello there, it's"
+									"Well hello there!, it's"
 								);
 								let greetingDispatcher = connection.play(
 									onJoinGreeting
